@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Alert, View, AppState, Text, Pressable } from 'react-native';
+import {
+  Alert,
+  View,
+  AppState,
+  Text,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { supabase } from '../../utils/supabase';
 import { Button, Icon, Input } from '@rneui/themed';
 import Background from '@/components/Background';
@@ -33,62 +41,67 @@ export default function Auth() {
 
   return (
     <Background>
-      <View
-        className='flex-1'
-        style={{
-          padding: scale(10),
-          gap: verticalScale(10),
-          justifyContent: 'center',
-        }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <Text className='text-2xl font-bold text-center'>Welcome Back!</Text>
-        <View>
-          <Input
-            labelStyle={{ color: 'black' }}
-            label='Email'
-            leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-            onChangeText={(text) => setEmail(text)}
-            value={email}
-            placeholder='email@address.com'
-            autoCapitalize={'none'}
-          />
-        </View>
-        <View>
-          <Input
-            labelStyle={{ color: 'black' }}
-            label='Password'
-            leftIcon={{ type: 'font-awesome', name: 'lock' }}
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            secureTextEntry={showPassword}
-            placeholder='Password'
-            autoCapitalize={'none'}
-            rightIcon={
-              <Pressable onPress={() => setShowPassword(!showPassword)}>
-                <Icon
-                  name={showPassword ? 'eye-off' : 'eye'}
-                  type='feather'
-                  color='gray'
-                />
+        <View
+          className='flex-1'
+          style={{
+            padding: scale(10),
+            gap: verticalScale(10),
+            justifyContent: 'center',
+          }}
+        >
+          <Text className='text-2xl font-bold text-center'>Welcome Back!</Text>
+          <View>
+            <Input
+              labelStyle={{ color: 'black' }}
+              label='Email'
+              leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+              placeholder='email@address.com'
+              autoCapitalize={'none'}
+            />
+          </View>
+          <View>
+            <Input
+              labelStyle={{ color: 'black' }}
+              label='Password'
+              leftIcon={{ type: 'font-awesome', name: 'lock' }}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              secureTextEntry={showPassword}
+              placeholder='Password'
+              autoCapitalize={'none'}
+              rightIcon={
+                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                  <Icon
+                    name={showPassword ? 'eye-off' : 'eye'}
+                    type='feather'
+                    color='gray'
+                  />
+                </Pressable>
+              }
+            />
+          </View>
+          <View className='gap-3'>
+            <Link href={'/(auth)/signup'} asChild>
+              <Pressable>
+                <Text className='text-purple-900 font-bold text-center'>
+                  Don't you have an account? Sign Up!
+                </Text>
               </Pressable>
-            }
-          />
+            </Link>
+            <Button
+              title='Sign in'
+              disabled={loading}
+              onPress={() => signInWithEmail()}
+            />
+          </View>
         </View>
-        <View className='gap-3'>
-          <Link href={'/(auth)/signup'} asChild>
-            <Pressable>
-              <Text className='text-purple-900 font-bold text-center'>
-                Don't you have an account? Sign Up!
-              </Text>
-            </Pressable>
-          </Link>
-          <Button
-            title='Sign in'
-            disabled={loading}
-            onPress={() => signInWithEmail()}
-          />
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     </Background>
   );
 }
