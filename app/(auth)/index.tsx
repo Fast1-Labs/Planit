@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Alert, View, AppState, Text, Pressable } from 'react-native';
 import { supabase } from '../../utils/supabase';
-import { Button, Input } from '@rneui/themed';
+import { Button, Icon, Input } from '@rneui/themed';
 import Background from '@/components/Background';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { Link } from 'expo-router';
@@ -17,6 +17,7 @@ AppState.addEventListener('change', (state) => {
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
   const [loading, setLoading] = useState(false);
 
   async function signInWithEmail() {
@@ -28,24 +29,6 @@ export default function Auth() {
 
     if (error) Alert.alert(error.message);
     setLoading(false);
-  }
-
-  {
-    /*async function signUpWithEmail() {
-    setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-
-    if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert('Please check your inbox for email verification!');
-    setLoading(false);
-  }*/
   }
 
   return (
@@ -77,9 +60,18 @@ export default function Auth() {
             leftIcon={{ type: 'font-awesome', name: 'lock' }}
             onChangeText={(text) => setPassword(text)}
             value={password}
-            secureTextEntry={true}
+            secureTextEntry={showPassword}
             placeholder='Password'
             autoCapitalize={'none'}
+            rightIcon={
+              <Pressable onPress={() => setShowPassword(!showPassword)}>
+                <Icon
+                  name={showPassword ? 'eye-off' : 'eye'}
+                  type='feather'
+                  color='gray'
+                />
+              </Pressable>
+            }
           />
         </View>
         <View className='gap-3'>
@@ -96,14 +88,6 @@ export default function Auth() {
             onPress={() => signInWithEmail()}
           />
         </View>
-        {/* 
-      <View style={styles.verticallySpaced}>
-        <Button
-          title='Sign up'
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
-        />
-      </View>*/}
       </View>
     </Background>
   );

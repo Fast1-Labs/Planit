@@ -4,13 +4,14 @@ import { Button, Icon, Input } from '@rneui/themed';
 import { useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import { scale, verticalScale } from 'react-native-size-matters';
+import { Link } from 'expo-router';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(true);
   const [loading, setLoading] = useState(false);
 
   async function signUpWithEmail() {
@@ -92,6 +93,13 @@ export default function SignUp() {
             }
           />
         </View>
+        <Link asChild href={'/(auth)'}>
+          <Pressable>
+            <Text className='text-center text-purple-900 font-bold'>
+              Already have an account?Sign in!
+            </Text>
+          </Pressable>
+        </Link>
         <Button title='Sign up' onPress={signUpWithEmail} disabled={loading} />
       </View>
     </Background>
