@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Alert, View, AppState, Text } from 'react-native';
+import { Alert, View, AppState, Text, Pressable } from 'react-native';
 import { supabase } from '../../utils/supabase';
 import { Button, Input } from '@rneui/themed';
 import Background from '@/components/Background';
 import { scale, verticalScale } from 'react-native-size-matters';
+import { Link } from 'expo-router';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -81,9 +82,15 @@ export default function Auth() {
             autoCapitalize={'none'}
           />
         </View>
-        <View>
+        <View className='gap-3'>
+          <Link href={'/(auth)/signup'} asChild>
+            <Pressable>
+              <Text className='text-purple-900 font-bold text-center'>
+                Don't you have an account? Sign Up!
+              </Text>
+            </Pressable>
+          </Link>
           <Button
-            style={{ paddingTop: verticalScale(20) }}
             title='Sign in'
             disabled={loading}
             onPress={() => signInWithEmail()}
@@ -96,7 +103,7 @@ export default function Auth() {
           disabled={loading}
           onPress={() => signUpWithEmail()}
         />
-      </View>*/}{' '}
+      </View>*/}
       </View>
     </Background>
   );
