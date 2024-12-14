@@ -1,4 +1,5 @@
 import Section from '@/components/Section';
+import TaskListItem from '@/components/TaskListItem';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -17,7 +18,10 @@ export default function HomeScreen() {
       <Text className='pl-5 text-xl font-semibold pt-10 p-2'>
         Today's Tasks
       </Text>
-      <View>{/* Task List Section */}</View>
+      <View className='flex-1 p-4'>
+        {/* Task List Section */}
+        <TaskListItem title='Email to Anıl' time='8.00AM to 12.00PM' />
+      </View>
       <View>{/* Create Task Button */}</View>
     </SafeAreaView>
   );
