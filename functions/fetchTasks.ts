@@ -21,3 +21,34 @@ export const fetchTasks = async () => {
     throw new Error('Failed while fetching tasks');
   }
 };
+
+export const createTasks = async ({
+  title,
+  description,
+  dueDate,
+  status,
+}: {
+  title: string;
+  description: string;
+  dueDate: string;
+  status: string;
+}) => {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) throw new Error('User is not logged in');
+
+  const { data, error: insertError } = await supabase.from('tasks').insert({
+    title,
+    description,
+    due_date: dueDate,
+    status,
+    user_id: user?.id,
+  });
+
+  if (insertError) throw new Error(insertError.message);
+
+  return data;
+};
