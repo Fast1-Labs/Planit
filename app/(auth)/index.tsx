@@ -63,6 +63,7 @@ export default function Auth() {
               value={email}
               placeholder='email@address.com'
               autoCapitalize={'none'}
+              keyboardType={'email-address'}
             />
           </View>
           <View>

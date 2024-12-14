@@ -62,6 +62,7 @@ export default function SignUp() {
               label='Email'
               placeholder='email@email.com'
               labelStyle={{ color: 'black' }}
+              keyboardType={'email-address'}
             />
           </View>
           <View>
