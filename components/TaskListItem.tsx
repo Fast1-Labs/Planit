@@ -10,6 +10,10 @@ export default function TaskListItem({
   time: string;
 }) {
   const [checked, setChecked] = useState(false);
+
+  const onEdit = () => {};
+  const onDelete = () => {};
+
   return (
     <View className='flex-row justify-center border border-gray-400 rounded-full items-center'>
       <View className='pl-5 p-2'>
@@ -27,8 +31,8 @@ export default function TaskListItem({
       </View>
       <View className='flex-row gap-3 p-4'>
         {/* Edit and Delete buttons */}
-        <AntDesign name='edit' size={24} color={'blue'} />
-        <AntDesign name='delete' size={24} color={'red'} />
+        <AntDesign name='edit' size={24} color={'blue'} onPress={onEdit} />
+        <AntDesign name='delete' size={24} color={'red'} onPress={onDelete} />
       </View>
     </View>
   );
