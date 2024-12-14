@@ -1,5 +1,5 @@
 import Section from '@/components/Section';
-import TaskListItem from '@/components/TaskListItem';
+import TasksList from '@/components/TasksList';
 import { AntDesign } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
@@ -26,7 +26,7 @@ export default function HomeScreen() {
         </Text>
         <View className='flex-1 p-4'>
           {/* Task List Section */}
-          <TaskListItem title='Email to Anıl' time='8.00AM to 12.00PM' />
+          <TasksList />
         </View>
         <View className='items-center p-3'>
           {/* Create Task Button */}

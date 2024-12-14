@@ -1,6 +1,6 @@
 import { supabase } from '@/utils/supabase';
 
-const fetchTasks = async () => {
+export const fetchTasks = async () => {
   try {
     const {
       data: { user },
@@ -21,3 +21,5 @@ const fetchTasks = async () => {
     throw new Error('Failed while fetching tasks');
   }
 };
+
+const createTasks = async () => {};
