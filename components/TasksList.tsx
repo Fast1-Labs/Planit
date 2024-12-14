@@ -19,6 +19,7 @@ export default function TasksList() {
   return (
     <FlatList
       data={tasks}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TaskListItem title={item.title} time={item.due_date} />
       )}

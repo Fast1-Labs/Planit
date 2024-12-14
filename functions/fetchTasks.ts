@@ -21,5 +21,3 @@ export const fetchTasks = async () => {
     throw new Error('Failed while fetching tasks');
   }
 };
-
-const createTasks = async () => {};
