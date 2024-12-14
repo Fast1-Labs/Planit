@@ -13,18 +13,9 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name='index'
-        options={{
-          title: 'Tab One',
-        }}
-      />
-      <Stack.Screen
-        name='two'
-        options={{
-          title: 'Tab Two',
-        }}
-      />
+      <Stack.Screen name='index' />
+      <Stack.Screen name='profile' />
+      <Stack.Screen name='create' />
     </Stack>
   );
 }
