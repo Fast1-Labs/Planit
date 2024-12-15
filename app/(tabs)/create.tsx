@@ -42,7 +42,7 @@ export default function Create() {
         <View>
           <Text className='font-semibold text-2xl pl-4 pt-4'>Task Title</Text>
           <TextInput
-            className='border border-gray-400 p-3 m-4 rounded-xl'
+            className='border border-gray-300 p-3 m-4 rounded-xl'
             value={title}
             onChangeText={setTitle}
             placeholder='Title'
@@ -66,7 +66,7 @@ export default function Create() {
             </Pressable>
           </View>
         </View>
-        <View>
+        <View className='p-4'>
           <DateTimeSection />
         </View>
         <View className='items-center p-3'>

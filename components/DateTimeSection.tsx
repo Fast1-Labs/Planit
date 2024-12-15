@@ -12,7 +12,7 @@ export default function DateTimeSection() {
   const [endTime, setEndTime] = useState(new Date());
 
   return (
-    <View className='p-5 gap-2'>
+    <View className='gap-2'>
       {/* Date & Time */}
       <Text className='text-xl font-bold mb-2'>Date & Time</Text>
       <Pressable
@@ -43,8 +43,11 @@ export default function DateTimeSection() {
       )}
 
       {/* Start and End Time */}
-      <View className='flex-row justify-between mt-5'>
-        <View className='w-[48%]'>
+      <View
+        className='flex-row mt-5 items-center '
+        style={{ justifyContent: 'space-between' }}
+      >
+        <View style={{ width: '48%' }}>
           <Text className='text-xl font-semibold mb-2'>Start time</Text>
           <Pressable
             className='border border-gray-300 rounded-lg p-3'
@@ -70,8 +73,8 @@ export default function DateTimeSection() {
           )}
         </View>
 
-        <View className='w-[48%]'>
-          <Text className='text-lg font-semibold mb-2'>End time</Text>
+        <View style={{ width: '48%' }}>
+          <Text className='text-xl font-semibold mb-2'>End time</Text>
           <Pressable
             className='border border-gray-300 rounded-lg p-3'
             onPress={() => setShowEndTime(true)}
