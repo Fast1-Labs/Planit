@@ -9,12 +9,14 @@ export default function HomeScreen() {
   return (
     <View className='flex-1 bg-slate-100'>
       <SafeAreaView className='flex-1'>
-        <View className='p-2 pb-10 flex-row'>
+        <View className='p-2 pb-10 flex-row items-center'>
           <Text className='text-2xl font-bold pl-5 flex-1'>
             Lets start with your task!
           </Text>
-          <Link asChild href={'/(tabs)/profile'}>
-            <AntDesign className='pr-2' name='user' size={24} color={'black'} />
+          <Link href={'/(tabs)/profile'} asChild>
+            <Pressable className='pr-2'>
+              <AntDesign name='user' size={24} color={'black'} />
+            </Pressable>
           </Link>
         </View>
         <View className='flex-row'>

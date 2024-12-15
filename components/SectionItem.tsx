@@ -11,13 +11,12 @@ export default function SectionItem({
 }) {
   return (
     <View
-      className='border border-gray-400 w-2/5 p-5'
+      className={`bg-['${backgroundColor}'] flex-1 p-2`}
       //@ts-ignore
       backgroundColor={backgroundColor}
-      style={{ backgroundColor }}
     >
-      <View className='flex-row justify-between'>
-        <Text className='font-bold text-lg'>{title}</Text>
+      <View className='flex-row p-2'>
+        <Text className='font-bold text-lg flex-1'>{title}</Text>
         <Text className='font-bold text-lg'>{count}</Text>
       </View>
     </View>

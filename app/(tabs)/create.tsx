@@ -1,7 +1,8 @@
 import { createTasks } from '@/functions/fetchTasks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Create() {
   const [title, setTitle] = useState<string>('');
@@ -33,5 +34,11 @@ export default function Create() {
     }
   };
 
-  return <View></View>;
+  return (
+    <View className='bg-slate-300 flex-1'>
+      <SafeAreaView>
+        <Text className='text-bold text-2xl text-center'>Create Task</Text>
+      </SafeAreaView>
+    </View>
+  );
 }
