@@ -1,3 +1,4 @@
+import DateTimeSection from '@/components/DateTimeSection';
 import { createTasks } from '@/functions/fetchTasks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -37,11 +38,11 @@ export default function Create() {
   return (
     <View className='bg-slate-200 flex-1'>
       <SafeAreaView>
-        <Text className='text-bold text-2xl text-center'>Create Task</Text>
+        <Text className='font-bold text-2xl text-center'>Create Task</Text>
         <View>
           <Text className='font-semibold text-2xl pl-4 pt-4'>Task Title</Text>
           <TextInput
-            className='border border-gray-400 p-3 m-4'
+            className='border border-gray-400 p-3 m-4 rounded-xl'
             value={title}
             onChangeText={setTitle}
             placeholder='Title'
@@ -64,6 +65,9 @@ export default function Create() {
               </Text>
             </Pressable>
           </View>
+        </View>
+        <View>
+          <DateTimeSection />
         </View>
         <View className='items-center p-3'>
           <Pressable
