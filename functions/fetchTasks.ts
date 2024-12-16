@@ -58,7 +58,8 @@ export const createTasks = async ({
   return data;
 };
 
-export const updateTasks = async ({
+{
+  /*export const updateTasks = async ({
   id,
   title,
   description,
@@ -82,4 +83,5 @@ export const updateTasks = async ({
     .from('tasks')
     .update({ title, description, dueDate, status })
     .then();
-};
+};*/
+}
