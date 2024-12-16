@@ -1,6 +1,7 @@
 import DateTimeSection from '@/components/DateTimeSection';
 import { createTasks } from '@/functions/fetchTasks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   Alert,
@@ -16,8 +17,7 @@ export default function Create() {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [dueDate, setDueDate] = useState<Date>(new Date());
-  const [startTime, setStartTime] = useState<Date>(new Date());
-  const [endTime, setEndTime] = useState<Date>(new Date());
+  const [dueTime, setDueTime] = useState<Date>(new Date());
   const [status, setStatus] = useState<string>('');
 
   const queryClient = useQueryClient();
@@ -36,14 +36,13 @@ export default function Create() {
   });
 
   const handleCreate = () => {
-    if (title && dueDate && startTime && endTime) {
+    if (title && dueDate && dueTime && status && description) {
       mutation.mutate({
         title,
         description,
         status,
         dueDate: dueDate.toISOString(),
-        startTime: startTime.toISOString(),
-        endTime: endTime.toISOString(),
+        dueTime: dueTime.toISOString(),
       });
     } else {
       Alert.alert('Please fill in all required fields!');
@@ -66,13 +65,33 @@ export default function Create() {
             />
           </View>
 
+          {/* Category */}
+
+          <View className='pt-2 p-2'>
+            <Text className='font-semibold text-xl pl-2'>Category</Text>
+            <View className='flex-row p-2 justify-around gap-1'>
+              {['Education', 'Work', 'Groceries'].map((category) => (
+                <Pressable
+                  key={category}
+                  className={`p-4 rounded-xl w-1/3 ${
+                    status === category ? 'bg-purple-600' : 'bg-purple-400'
+                  }`}
+                  onPress={() => setStatus(category)}
+                >
+                  <Text className='text-white font-semibold text-center'>
+                    {category}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+
           {/* Date & Time Section */}
           <View className='p-4'>
             <DateTimeSection
-              onDateTimeChange={({ date, startTime, endTime }) => {
-                setDueDate(date);
-                setStartTime(startTime);
-                setEndTime(endTime);
+              onDateTimeChange={({ dueDate, dueTime }) => {
+                setDueDate(dueDate);
+                setDueTime(dueTime);
               }}
             />
           </View>
@@ -92,7 +111,10 @@ export default function Create() {
           <View className='items-center p-3'>
             <Pressable
               className='bg-purple-600 p-4 rounded-lg w-full'
-              onPress={handleCreate}
+              onPress={() => {
+                handleCreate();
+                router.back();
+              }}
             >
               <Text className='text-white font-semibold text-center text-xl'>
                 Create Task

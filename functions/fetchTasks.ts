@@ -21,15 +21,18 @@ export const fetchTasks = async () => {
     throw new Error('Failed while fetching tasks');
   }
 };
+
 export const createTasks = async ({
   title,
   description,
   dueDate,
+  dueTime,
   status,
 }: {
   title: string;
   description: string;
   dueDate: string;
+  dueTime: string;
   status: string;
 }) => {
   const {
@@ -46,6 +49,7 @@ export const createTasks = async ({
         title,
         description,
         due_date: dueDate,
+        due_time: dueTime,
         status,
         user_id: user.id,
       },

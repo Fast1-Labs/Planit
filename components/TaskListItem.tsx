@@ -13,15 +13,16 @@ export default function TaskListItem({
 
   const onEdit = () => {};
   const onDelete = () => {};
+  const onComplete = () => {};
 
   return (
-    <View className='flex-row justify-center border border-gray-400 rounded-full items-center'>
+    <View className='flex-row justify-center border border-gray-300 rounded-full items-center'>
       <View className='pl-5 p-2'>
         {/* Checkmark here */}
         <AntDesign
           name='checkcircle'
           color={checked ? 'green' : 'grey'}
-          onPress={() => setChecked(!checked)}
+          onPress={onComplete}
           size={24}
         />
       </View>
