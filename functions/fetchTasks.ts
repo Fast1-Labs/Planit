@@ -62,19 +62,22 @@ export const createTasks = async ({
   return data;
 };
 
-{
-  /*export const updateTasks = async ({
+export const updateTasks = async ({
   id,
   title,
   description,
   dueDate,
+  dueTime,
   status,
+  onComplete,
 }: {
   id: number;
   title: string;
   description: string;
   dueDate: string;
+  dueTime: string;
   status: string;
+  onComplete: boolean;
 }) => {
   const {
     data: { user },
@@ -85,7 +88,6 @@ export const createTasks = async ({
 
   const { data, error: insertError } = await supabase
     .from('tasks')
-    .update({ title, description, dueDate, status })
+    .update({ title, description, dueDate, dueTime, status, onComplete })
     .then();
-};*/
-}
+};

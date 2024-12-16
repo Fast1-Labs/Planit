@@ -1,6 +1,8 @@
 import { View, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateTasks } from '@/functions/fetchTasks';
 
 export default function TaskListItem({
   title,
@@ -10,10 +12,22 @@ export default function TaskListItem({
   time: string;
 }) {
   const [checked, setChecked] = useState(false);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: updateTasks,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['tasks'] }),
+    onError: (error: any) => console.log('Error while updating', error),
+  });
 
   const onEdit = () => {};
   const onDelete = () => {};
-  const onComplete = () => {};
+  const onComplete = ({ taskId }: { taskId: number }) => {
+    mutation.mutate({
+      taskId,
+      isCompleted: true,
+    });
+  };
 
   return (
     <View className='flex-row justify-center border border-gray-300 rounded-full items-center'>
