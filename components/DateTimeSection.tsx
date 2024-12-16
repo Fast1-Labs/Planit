@@ -3,7 +3,17 @@ import { View, Text, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default function DateTimeSection() {
+type DateTimeSectionProps = {
+  onDateTimeChange: (data: {
+    date: Date;
+    startTime: Date;
+    endTime: Date;
+  }) => void;
+};
+
+export default function DateTimeSection({
+  onDateTimeChange,
+}: DateTimeSectionProps) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showStartTime, setShowStartTime] = useState(false);
@@ -11,9 +21,17 @@ export default function DateTimeSection() {
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
 
+  const updateParent = (newDate: Date, newStart: Date, newEnd: Date) => {
+    onDateTimeChange({
+      date: newDate,
+      startTime: newStart,
+      endTime: newEnd,
+    });
+  };
+
   return (
     <View className='gap-2'>
-      {/* Date & Time */}
+      {/* Date */}
       <Text className='text-xl font-bold mb-2'>Date & Time</Text>
       <Pressable
         className='border border-gray-300 rounded-lg flex-row items-center p-3'
@@ -37,16 +55,16 @@ export default function DateTimeSection() {
           display='default'
           onChange={(event, date) => {
             setShowDatePicker(false);
-            if (date) setSelectedDate(date);
+            if (date) {
+              setSelectedDate(date);
+              updateParent(date, startTime, endTime);
+            }
           }}
         />
       )}
 
       {/* Start and End Time */}
-      <View
-        className='flex-row mt-5 items-center '
-        style={{ justifyContent: 'space-between' }}
-      >
+      <View className='flex-row mt-5 items-center justify-between'>
         <View style={{ width: '48%' }}>
           <Text className='text-xl font-semibold mb-2'>Start time</Text>
           <Pressable
@@ -67,7 +85,10 @@ export default function DateTimeSection() {
               display='default'
               onChange={(event, time) => {
                 setShowStartTime(false);
-                if (time) setStartTime(time);
+                if (time) {
+                  setStartTime(time);
+                  updateParent(selectedDate, time, endTime);
+                }
               }}
             />
           )}
@@ -93,7 +114,10 @@ export default function DateTimeSection() {
               display='default'
               onChange={(event, time) => {
                 setShowEndTime(false);
-                if (time) setEndTime(time);
+                if (time) {
+                  setEndTime(time);
+                  updateParent(selectedDate, startTime, time);
+                }
               }}
             />
           )}
