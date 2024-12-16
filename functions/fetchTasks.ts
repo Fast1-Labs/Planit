@@ -21,7 +21,6 @@ export const fetchTasks = async () => {
     throw new Error('Failed while fetching tasks');
   }
 };
-
 export const createTasks = async ({
   title,
   description,
@@ -35,20 +34,52 @@ export const createTasks = async ({
 }) => {
   const {
     data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) throw new Error('User is not logged in');
+
+  const { data, error: insertError } = await supabase
+    .from('tasks')
+    .insert([
+      {
+        title,
+        description,
+        due_date: dueDate,
+        status,
+        user_id: user.id,
+      },
+    ])
+    .select();
+
+  if (insertError)
+    throw new Error(`Task creation failed: ${insertError.message}`);
+
+  return data;
+};
+
+export const updateTasks = async ({
+  id,
+  title,
+  description,
+  dueDate,
+  status,
+}: {
+  id: number;
+  title: string;
+  description: string;
+  dueDate: string;
+  status: string;
+}) => {
+  const {
+    data: { user },
     error,
   } = await supabase.auth.getUser();
 
   if (error) throw new Error('User is not logged in');
 
-  const { data, error: insertError } = await supabase.from('tasks').insert({
-    title,
-    description,
-    due_date: dueDate,
-    status,
-    user_id: user?.id,
-  });
-
-  if (insertError) throw new Error(insertError.message);
-
-  return data;
+  const { data, error: insertError } = await supabase
+    .from('tasks')
+    .update({ title, description, dueDate, status })
+    .then();
 };
