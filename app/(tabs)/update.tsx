@@ -1,55 +1,17 @@
 import DateTimeSection from '@/components/DateTimeSection';
-import { createTasks } from '@/functions/fetchTasks';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { router, Stack } from 'expo-router';
 import { useState } from 'react';
-import {
-  Alert,
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  ScrollView,
-} from 'react-native';
+import { View, Text, ScrollView, TextInput, Pressable } from 'react-native';
 
-export default function Create() {
+export default function Update() {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [dueDate, setDueDate] = useState<Date>(new Date());
   const [dueTime, setDueTime] = useState<Date>(new Date());
   const [status, setStatus] = useState<string>('');
-  const [newTaskSuccess, setNewTaskSuccess] = useState<boolean>();
+  const [updateTaskSuccess, setUpdateTaskSuccess] = useState<boolean>();
 
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: createTasks,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      setTitle('');
-      setDescription('');
-      setStatus('');
-    },
-    onError: (error: any) => {
-      console.log('Error creating task', error);
-    },
-  });
-
-  const handleCreate = () => {
-    if (title && dueDate && dueTime && status && description) {
-      mutation.mutate({
-        title,
-        description,
-        status,
-        dueDate: dueDate.toISOString(),
-        dueTime: dueTime.toISOString(),
-      });
-      setNewTaskSuccess(true);
-    } else {
-      Alert.alert('Please fill in all required fields!');
-      setNewTaskSuccess(false);
-    }
-  };
+  const handleUpdate = () => {};
 
   return (
     <View className='bg-slate-200 flex-1'>
@@ -121,9 +83,9 @@ export default function Create() {
           <Pressable
             className='bg-purple-600 p-4 rounded-lg w-full'
             onPress={() => {
-              handleCreate();
+              handleUpdate();
               {
-                newTaskSuccess && router.back();
+                updateTaskSuccess && router.back();
               }
             }}
           >

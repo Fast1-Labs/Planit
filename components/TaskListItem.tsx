@@ -3,6 +3,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateTasks } from '@/functions/fetchTasks';
+import { router } from 'expo-router';
 
 export default function TaskListItem({
   title,
