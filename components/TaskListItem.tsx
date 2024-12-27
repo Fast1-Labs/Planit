@@ -14,20 +14,16 @@ export default function TaskListItem({
   const [checked, setChecked] = useState(false);
   const queryClient = useQueryClient();
 
+  const onEdit = (id: number) => {};
+  const onDelete = (id: number) => {};
+
   const mutation = useMutation({
     mutationFn: updateTasks,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['tasks'] }),
     onError: (error: any) => console.log('Error while updating', error),
   });
 
-  const onEdit = () => {};
-  const onDelete = () => {};
-  const onComplete = ({ taskId }: { taskId: number }) => {
-    mutation.mutate({
-      taskId,
-      isCompleted: true,
-    });
-  };
+  const onComplete = ({ id }: { id: number }) => {};
 
   return (
     <View className='flex-row justify-center border border-gray-300 rounded-full items-center'>
@@ -36,7 +32,7 @@ export default function TaskListItem({
         <AntDesign
           name='checkcircle'
           color={checked ? 'green' : 'grey'}
-          onPress={onComplete}
+          onPress={() => onComplete}
           size={24}
         />
       </View>

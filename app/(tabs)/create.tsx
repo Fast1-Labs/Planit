@@ -1,8 +1,7 @@
 import DateTimeSection from '@/components/DateTimeSection';
 import { createTasks } from '@/functions/fetchTasks';
-import { AntDesign } from '@expo/vector-icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, router, Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useState } from 'react';
 import {
   Alert,
@@ -12,7 +11,6 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Create() {
   const [title, setTitle] = useState<string>('');

@@ -1,7 +1,6 @@
-import { Redirect, Stack } from 'expo-router';
-import 'react-native-reanimated';
+import { Stack } from 'expo-router';
 import '../global.css';
-import AuthContextProvider, { useAuth } from '@/context/AuthContext';
+import AuthContextProvider from '@/context/AuthContext';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from '@/utils/queryClient';
 
