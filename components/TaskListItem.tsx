@@ -43,8 +43,18 @@ export default function TaskListItem({
       </View>
       <View className='flex-row gap-3 p-4'>
         {/* Edit and Delete buttons */}
-        <AntDesign name='edit' size={24} color={'blue'} onPress={onEdit} />
-        <AntDesign name='delete' size={24} color={'red'} onPress={onDelete} />
+        <AntDesign
+          name='edit'
+          size={24}
+          color={'blue'}
+          onPress={() => onEdit}
+        />
+        <AntDesign
+          name='delete'
+          size={24}
+          color={'red'}
+          onPress={() => onDelete}
+        />
       </View>
     </View>
   );
