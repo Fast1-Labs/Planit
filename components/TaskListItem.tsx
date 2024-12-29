@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateTasks } from '@/functions/fetchTasks';
+import { updateTasks, deleteTasks } from '@/functions/fetchTasks';
 import { router } from 'expo-router';
 
 export default function TaskListItem({
@@ -15,16 +15,29 @@ export default function TaskListItem({
   const [checked, setChecked] = useState(false);
   const queryClient = useQueryClient();
 
-  const onEdit = (id: number) => {};
-  const onDelete = (id: number) => {};
-
-  const mutation = useMutation({
-    mutationFn: updateTasks,
+  const mutationDelete = useMutation({
+    mutationFn: deleteTasks,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['tasks'] }),
-    onError: (error: any) => console.log('Error while updating', error),
+    onError: (error: any) => console.log('Error while deleting ', error),
   });
 
-  const onComplete = ({ id }: { id: number }) => {};
+  const mutationUpdate = useMutation({
+    mutationFn: updateTasks,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['tasks'] }),
+    onError: (error: any) => console.log('Error while updating ', error),
+  });
+
+  const onEdit = (id: number) => {
+    router.push(`/update/${id}`);
+  };
+  const onDelete = (id: number) => {
+    mutationDelete.mutate(id);
+  };
+
+  const onComplete = ({ id }: { id: number }) => {
+    mutationUpdate.mutate({ id, completed: !checked });
+    setChecked(!checked);
+  };
 
   return (
     <View className='flex-row justify-center border border-gray-300 rounded-full items-center'>

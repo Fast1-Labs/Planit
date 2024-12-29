@@ -62,32 +62,24 @@ export const createTasks = async ({
   return data;
 };
 
+export const deleteTasks = async (id: number) => {
+  const response = await fetch(`https://api.example.com/tasks/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error('Failed to delete task');
+};
+
 export const updateTasks = async ({
   id,
-  title,
-  description,
-  dueDate,
-  dueTime,
-  status,
-  onComplete,
+  completed,
 }: {
   id: number;
-  title: string;
-  description: string;
-  dueDate: string;
-  dueTime: string;
-  status: string;
-  onComplete: boolean;
+  completed: boolean;
 }) => {
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error) throw new Error('User is not logged in');
-
-  const { data, error: insertError } = await supabase
-    .from('tasks')
-    .update({ title, description, dueDate, dueTime, status, onComplete })
-    .then();
+  const response = await fetch(`https://api.example.com/tasks/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ completed }),
+  });
+  if (!response.ok) throw new Error('Failed to update task');
 };

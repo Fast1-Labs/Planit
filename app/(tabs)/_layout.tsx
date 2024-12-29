@@ -16,6 +16,7 @@ export default function TabLayout() {
       <Stack.Screen name='index' />
       <Stack.Screen name='profile' />
       <Stack.Screen name='create' />
+      <Stack.Screen name='update' />
     </Stack>
   );
 }
